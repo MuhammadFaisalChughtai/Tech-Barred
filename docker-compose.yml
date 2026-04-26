@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  techbarred:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techbarred-app
+    ports:
+      - "3036:3000"
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    environment:
+      - NODE_ENV=production
