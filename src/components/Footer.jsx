@@ -1,126 +1,59 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { Zap, Twitter, Linkedin, Github, ArrowUp } from "lucide-react";
+import { Mail } from "lucide-react";
+import Logo from "./Logo";
 
-const Footer = () => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+export default function Footer() {
+  const links = {
+    Services: [
+      { label: "AI Apps", to: "/services#ai-apps" },
+      { label: "AI Automation", to: "/services#ai-automation" },
+      { label: "Web Solutions", to: "/services#web-solutions" },
+      { label: "Cloud Services", to: "/services#cloud-services" },
+      { label: "Custom Apps", to: "/services#custom-apps" },
+      { label: "Integrations", to: "/services#integrations" },
+    ],
+    Company: [
+      { label: "About Us", to: "/about" },
+      { label: "Portfolio", to: "/portfolio" },
+      { label: "Contact", to: "/contact" },
+    ],
+  };
 
   return (
-    <footer className="bg-slate-900 pt-16 pb-8 border-t border-slate-800">
-      <div className="container-custom">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white fill-current" />
-              </div>
-              <span className="text-xl font-bold text-slate-100">
-                TECHBARRED
-              </span>
-            </div>
-            <p className="text-slate-400 mb-6 max-w-sm leading-relaxed text-sm">
-              Building reliable digital infrastructure for businesses worldwide.
-              Simple, secure, and scalable.
+    <footer className="border-t border-[#c8c8c8] px-4 pb-8 pt-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1480px]">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
+          <div>
+            <Link href="/" aria-label="TechBarred home">
+              <Logo size={28} />
+            </Link>
+            <p className="mt-5 max-w-xs text-sm leading-7 text-neutral-500">
+              Engineering AI applications, automation, web platforms, cloud infrastructure, and custom integrations for businesses worldwide.
             </p>
-            <div className="flex gap-4">
-              {[
-                { Icon: Twitter, href: "https://twitter.com" },
-                { Icon: Linkedin, href: "https://linkedin.com" },
-                { Icon: Github, href: "https://github.com/TechBarred" },
-              ].map((item, idx) => (
-                <a
-                  key={idx}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-200"
-                >
-                  <item.Icon className="w-5 h-5 text-slate-400 transition-colors" />
-                </a>
-              ))}
+            <a href="mailto:hello@techbarred.com"
+              className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] text-[var(--accent)] hover:underline">
+              <Mail size={12} /> hello@techbarred.com
+            </a>
+          </div>
+          {Object.entries(links).map(([title, items]) => (
+            <div key={title}>
+              <h3 className="mb-5 font-mono text-[11px] uppercase tracking-widest text-black">{title}</h3>
+              <ul className="grid gap-3">
+                {items.map(({ label, to }) => (
+                  <li key={label}>
+                    <Link href={to} className="text-sm text-neutral-500 transition hover:text-[var(--accent)]">{label}</Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h4 className="font-bold text-slate-100 mb-6">Products</h4>
-            <ul className="space-y-4">
-              {[
-                { name: "SaaS Ecosystems", href: "/#products" },
-                { name: "Cloud Architecture", href: "/#expertise" },
-                { name: "Data Engineering", href: "/#expertise" },
-                { name: "Mobile Solutions", href: "/#products" },
-              ].map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-slate-400 hover:text-blue-400 transition-colors text-sm"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-slate-100 mb-6">Company</h4>
-            <ul className="space-y-4">
-              {[
-                { name: "Our Profile", href: "/#about" },
-                { name: "Core Arsenal", href: "/#expertise" },
-                { name: "Global Portfolio", href: "/#products" },
-                { name: "Contact Sales", href: "/#contact" },
-              ].map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-slate-400 hover:text-blue-400 transition-colors text-sm"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          ))}
         </div>
-
-        {/* Bottom */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
-            © {new Date().getFullYear()}{" "}
-            <span className="text-slate-100">TechBarred</span>. All rights
-            reserved.
-          </p>
-          <div className="flex gap-6 text-sm">
-            <Link
-              href="/privacy-policy"
-              className="text-slate-500 hover:text-blue-400 transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/terms-and-conditions"
-              className="text-slate-500 hover:text-blue-400 transition-colors"
-            >
-              Terms
-            </Link>
-          </div>
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[#c8c8c8] pt-8 sm:flex-row sm:items-center">
+          <p className="font-mono text-[11px] text-neutral-400">© {new Date().getFullYear()} TechBarred. All rights reserved.</p>
+          <a href="https://techbarred.com" className="font-mono text-[11px] text-neutral-400 hover:text-[var(--accent)]">techbarred.com</a>
         </div>
       </div>
-
-      {/* Scroll to Top */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-8 right-8 w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg flex items-center justify-center text-slate-300 hover:bg-slate-700 hover:text-white transition-all z-50"
-      >
-        <ArrowUp className="w-5 h-5" />
-      </button>
     </footer>
   );
-};
-
-export default Footer;
+}
